@@ -1,0 +1,90 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: ui/login.spec.ts >> TC_UI_001 — Valid Login
+- Location: tests/ui/login.spec.ts:4:5
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded.
+```
+
+```
+Error: locator.fill: Test timeout of 30000ms exceeded.
+Call log:
+  - waiting for locator('form').filter({ hasText: 'Login' }).getByPlaceholder('Email Address')
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e4]: Please wait while your request is being verified...
+```
+
+# Test source
+
+```ts
+  1  | import { expect, type Locator, type Page } from "@playwright/test";
+  2  | 
+  3  | export class LoginPage {
+  4  |   readonly page: Page;
+  5  |   readonly signUpname: Locator;
+  6  |   readonly signUpemailAddress: Locator;
+  7  |   readonly signUpButton: Locator;
+  8  |   readonly loginEmailAddress: Locator;
+  9  |   readonly loginPassword: Locator;
+  10 |   readonly loginButton: Locator;
+  11 |   readonly loginUserText:Locator;
+  12 | 
+  13 |   constructor(page: Page) {
+  14 |     this.page = page;
+  15 |     this.signUpname = page.getByRole("textbox", { name: "Name" });
+  16 |     this.signUpemailAddress = page
+  17 |       .locator("form")
+  18 |       .filter({ hasText: "Signup" })
+  19 |       .getByPlaceholder("Email Address");
+  20 |     this.signUpButton = page.getByRole("button", { name: "Signup" });
+  21 |     this.loginEmailAddress = page
+  22 |       .locator("form")
+  23 |       .filter({ hasText: "Login" })
+  24 |       .getByPlaceholder("Email Address");
+  25 |     this.loginPassword = page.getByRole("textbox", { name: "Password" });
+  26 |     this.loginButton = page.getByRole("button", { name: "Login" });
+  27 |     this.loginUserText = page.locator('#header');
+  28 |   }
+  29 | 
+  30 |   async gotoLogin() {
+  31 |     await this.page.goto(`/login`);
+  32 |   }
+  33 | 
+  34 |   async fillName(name: string) {
+  35 |     await this.signUpname.fill(name);
+  36 |   }
+  37 | 
+  38 |   async fillEmailAddress(email: string) {
+  39 |     await this.signUpemailAddress.fill(email);
+  40 |   }
+  41 | 
+  42 |   async clickSignUpButton() {
+  43 |     await this.signUpButton.click();
+  44 |   }
+  45 | 
+  46 |   async fillLoginCredential(email:string,password:string) {
+> 47 |     await this.loginEmailAddress.fill(email);
+     |                                  ^ Error: locator.fill: Test timeout of 30000ms exceeded.
+  48 |     await this.loginPassword.fill(password);
+  49 |   }
+  50 | 
+  51 |   async clickLoginButton() {
+  52 |     await this.loginButton.click();
+  53 |   }
+  54 | }
+  55 | 
+```
