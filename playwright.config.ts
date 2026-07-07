@@ -23,7 +23,7 @@ export default defineConfig({
     ['html', { open: 'never' }] 
   ],
   use: {
-    baseURL: 'https://automationexercise.com',
+    baseURL: process.env.BASE_URL,
     trace:'retain-on-failure-and-retries',
     video:'retain-on-failure-and-retries',
     screenshot:'only-on-failure',
