@@ -18,7 +18,10 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
-  reporter: 'html',
+  reporter: [
+    ['line'], 
+    ['html', { open: 'never' }] 
+  ],
   use: {
     baseURL: 'https://automationexercise.com',
     trace:'retain-on-failure-and-retries',
