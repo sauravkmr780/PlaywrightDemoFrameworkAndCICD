@@ -1,0 +1,23 @@
+{
+  "name": "playwrightframeworksetup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:qa": "cross-env ENV=qa npx playwright test",
+    "test:stage": "cross-env ENV=stage npx playwright test",
+    "test:prod": "cross-env ENV=prod npx playwright test",
+    "report": "npx playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@faker-js/faker": "^10.5.0",
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^26.1.0",
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.4.2"
+  }
+}
