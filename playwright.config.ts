@@ -15,9 +15,13 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
 reporter: [
-    ['line'], 
-    ['allure-playwright', { outputFolder: 'allure-results' }]
-  ],
+  ['list'],
+  ['allure-playwright', { 
+    outputFolder: 'allure-results',
+    detail: true,
+    suiteTitle: true
+  }]
+],
   use: {
     baseURL: process.env.BASE_URL,
     trace: 'retain-on-failure-and-retries',
